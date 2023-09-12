@@ -21,4 +21,3 @@ With `pip`:
 ```zsh
 pip install amazon-short-url
 ```
-
