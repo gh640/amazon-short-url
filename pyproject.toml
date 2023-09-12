@@ -1,13 +1,16 @@
 [tool.poetry]
 name = "amazon-short-url"
 version = "0.1.0"
-description = ""
+description = "A script to shorten Amazon Product page URLs."
 authors = ["Goto Hayato <gh640@hey.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
 click = "^8.1.7"
+
+[tool.poetry.scripts]
+amazon-short-url = 'amazon_short_url.cli:main'
 
 [build-system]
 requires = ["poetry-core"]
