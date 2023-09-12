@@ -19,13 +19,11 @@ def clean(url: str) -> str:
     if not is_valid_netloc(parsed.netloc):
         raise ValueError(f'Invalid netloc: {parsed.netloc}')
 
-    raw_path = parsed.path
-    match = re.search(r'/dp/[A-Z0-9]+', raw_path)
-    if match is None:
-        raise ValueError(f'Unsupported path: {raw_path}')
+    cleaned_path = clean_path(parsed.path)
+    if cleaned_path is None:
+        raise ValueError(f'Unsupported path: {parsed.path}')
 
-    clean_path = match.group(0)
-    return urlunsplit((parsed.scheme, parsed.netloc, clean_path, '', ''))
+    return urlunsplit((parsed.scheme, parsed.netloc, cleaned_path, '', ''))
 
 
 def is_valid_scheme(scheme: str) -> bool:
@@ -34,3 +32,11 @@ def is_valid_scheme(scheme: str) -> bool:
 
 def is_valid_netloc(netloc: str) -> bool:
     return re.match(r'www\.amazon\.co(m|m?\.[a-z]+)', netloc) != None
+
+
+def clean_path(raw_path: str) -> str | None:
+    match = re.search(r'/dp/[A-Z0-9]+', raw_path)
+    if match is None:
+        return None
+
+    return match.group(0)
