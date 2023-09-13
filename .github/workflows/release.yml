@@ -31,5 +31,7 @@ jobs:
       - name: build
         run: |
           poetry build
+      - name: Check the version
+        run: test $(poetry version --short) = v${{ github.ref_name }}
       - name: Publish package distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
